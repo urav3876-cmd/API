@@ -1,12 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using API.Data;
 using API.Services;
 using API.Interfaces;
-using Microsoft.OpenApi.Models;
 
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -103,6 +102,9 @@ namespace API
             app.UseAuthentication();
             app.UseAuthorization();
 
+            //kafka
+            app.UseMiddleware<KafkaLoggingMiddleware>();
+            
             app.MapControllers();
 
             app.Run();
