@@ -18,7 +18,6 @@
         public decimal ActualPayout { get; set; }
         public List<BetSelectionDto> Selections { get; set; } = new();
     }
-
     // Для получения данных ставки (GET /api/bets/{id})
     public class BetResponseDto
     {

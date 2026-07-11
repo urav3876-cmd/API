@@ -17,14 +17,14 @@ namespace API.Services
 
         public async Task<PlayerResponseDto> CreatePlayerAsync(PlayerCreateDto dto)
         {
-            //существует ли игрок с таким логином
+            // Проверяем, существует ли игрок с таким логином
             var exists = await _context.Players
                 .AnyAsync(p => p.Login == dto.Login);
 
             if (exists)
                 throw new InvalidOperationException($"Player with login '{dto.Login}' already exists");
 
-            //сущность Player из DTO
+            // Создаем сущность Player из DTO
             var player = new Player
             {
                 Login = dto.Login,
@@ -35,11 +35,11 @@ namespace API.Services
                 PassportSeries = dto.PassportSeries
             };
 
-            //Сохранение в базу данных
+            // Сохраняем в базу данных
             _context.Players.Add(player);
             await _context.SaveChangesAsync();
 
-            //DTO (без пароля)
+            // Возвращаем DTO (без пароля)
             return MapToResponse(player);
         }
 
@@ -60,7 +60,7 @@ namespace API.Services
             if (player == null)
                 throw new KeyNotFoundException($"Player with ID {id} not found");
 
-            // логин (с проверкой уникальности)
+            // Обновляем логин (с проверкой уникальности)
             if (!string.IsNullOrEmpty(dto.Login))
             {
                 var loginExists = await _context.Players
@@ -72,7 +72,7 @@ namespace API.Services
                 player.Login = dto.Login;
             }
 
-            //  остальные поля (только если они переданы)
+            // Обновляем остальные поля (только если они переданы)
             if (!string.IsNullOrEmpty(dto.PasswordHash))
                 player.PasswordHash = dto.PasswordHash;
 
