@@ -16,8 +16,8 @@ namespace API.Middlewares
             var config = new ProducerConfig
             {
                 BootstrapServers = configuration["Kafka:BootstrapServers"],
-                Acks = Acks.None,          // не ждём подтверждения от брокера
-                LingerMs = 1               // до 1мс на сбор батча
+                Acks = Acks.None,        
+                LingerMs = 1             
             };
 
             _producer = new ProducerBuilder<string, string>(config).Build();

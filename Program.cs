@@ -6,6 +6,7 @@ using System.Text;
 using API.Data;
 using API.Services;
 using API.Interfaces;
+using API.Middlewares;
 using Microsoft.OpenApi.Models;
 
 
@@ -23,7 +24,9 @@ namespace API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .AddXmlSerializerFormatters()  //XML format
+                .AddXmlDataContractSerializerFormatters(); //XML format
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -106,6 +109,7 @@ namespace API
             //kafka
             app.UseMiddleware<KafkaLoggingMiddleware>();
             
+
             app.MapControllers();
 
             app.Run();
