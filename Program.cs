@@ -19,22 +19,19 @@ namespace API
             builder.Services.AddSwaggerGen();
 
             // ========================================
-            // 1. РџРћР”РљР›Р®Р§Р•РќРР• Рљ POSTGRESQL
+            // 1. ПОДКЛЮЧЕНИЕ К POSTGRESQL
             // ========================================
-            // Р РµРіРёСЃС‚СЂРёСЂСѓРµРј DbContext Рё РіРѕРІРѕСЂРёРј, С‡С‚Рѕ Р±СѓРґРµРј РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ PostgreSQL
-            // РЎС‚СЂРѕРєР° РїРѕРґРєР»СЋС‡РµРЅРёСЏ Р±РµСЂРµС‚СЃСЏ РёР· appsettings.json
+            // Регистрируем DbContext и говорим, что будем использовать PostgreSQL
+            // Строка подключения берется из appsettings.json
             builder.Services.AddDbContext<BettingDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
-            
-            builder.Services.AddDbContext<EventDbContext>(options =>
-                options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
             // ========================================
-            // 2. Р Р•Р“РРЎРўР РђР¦РРЇ РќРђРЁРРҐ РЎР•Р Р’РРЎРћР’
+            // 2. РЕГИСТРАЦИЯ НАШИХ СЕРВИСОВ
             // ========================================
-            // AddScoped - СЃРѕР·РґР°РµС‚ РѕРґРёРЅ СЌРєР·РµРјРїР»СЏСЂ СЃРµСЂРІРёСЃР° РЅР° РєР°Р¶РґС‹Р№ HTTP-Р·Р°РїСЂРѕСЃ
+            // AddScoped - создает один экземпляр сервиса на каждый HTTP-запрос
             builder.Services.AddScoped<IPlayerService, PlayerService>();
             builder.Services.AddScoped<IBetService, BetService>();
-            builder.Services.AddScoped<IEventService, EventService>();
 
             var app = builder.Build();
 
