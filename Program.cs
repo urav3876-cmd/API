@@ -7,10 +7,11 @@ using API.Data;
 using API.Services;
 using API.Interfaces;
 using Microsoft.OpenApi.Models;
+using API.Middlewares;
 
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
+// JWT токен
 //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdHVzZXIiLCJqdGkiOiIxMjM0NTY3OC0xMjM0LTEyMzQtMTIzNC0xMjM0NTY3ODlhYmMiLCJleHAiOjIwMDAwMDAwMDAsImF1ZCI6ImJldHRpbmctYXBpIiwiaXNzIjoiYmV0dGluZy1hcGkifQ.2SGv3FyCI7jIMfSJmGAsJagjH_-vCCiDPN7G6FsoyNo
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -23,7 +24,9 @@ namespace API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .AddXmlSerializerFormatters() 
+                .AddXmlDataContractSerializerFormatters();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
@@ -73,7 +76,7 @@ namespace API
                     };
                 });
 
-            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            // AddAuthorization
             builder.Services.AddAuthorization(options =>
             {
                 options.FallbackPolicy = new AuthorizationPolicyBuilder()
@@ -81,11 +84,11 @@ namespace API
                     .Build();
             });
 
-            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ postgreSQL   
+            //PostgreSQL
             builder.Services.AddDbContext<BettingDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            //Services
             builder.Services.AddScoped<IPlayerService, PlayerService>();
             builder.Services.AddScoped<IBetService, BetService>();
 
@@ -104,8 +107,20 @@ namespace API
             app.UseAuthorization();
 
             //kafka
-            app.UseMiddleware<KafkaLoggingMiddleware>();
-            
+            var kafkaEnabled = builder.Configuration.GetValue<bool>("Kafka:Enabled");
+            if (kafkaEnabled)
+            {
+                app.UseMiddleware<KafkaLoggingMiddleware>();
+            }
+
+
+            var rabbitEnabled = builder.Configuration.GetValue<bool>("RabbitMQ:Enabled");
+            if (rabbitEnabled)
+            {
+                app.UseMiddleware<RabbitMQLoggingMiddleware>();
+            }
+
+
             app.MapControllers();
 
             app.Run();
