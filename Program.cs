@@ -10,7 +10,7 @@ using Microsoft.OpenApi.Models;
 
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// ����� ��� ����������� 
+// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdHVzZXIiLCJqdGkiOiIxMjM0NTY3OC0xMjM0LTEyMzQtMTIzNC0xMjM0NTY3ODlhYmMiLCJleHAiOjIwMDAwMDAwMDAsImF1ZCI6ImJldHRpbmctYXBpIiwiaXNzIjoiYmV0dGluZy1hcGkifQ.2SGv3FyCI7jIMfSJmGAsJagjH_-vCCiDPN7G6FsoyNo
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -73,7 +73,7 @@ namespace API
                     };
                 });
 
-            // ���������� �����������
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             builder.Services.AddAuthorization(options =>
             {
                 options.FallbackPolicy = new AuthorizationPolicyBuilder()
@@ -81,14 +81,13 @@ namespace API
                     .Build();
             });
 
-            //����������� � postgreSQL   
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ postgreSQL   
             builder.Services.AddDbContext<BettingDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-            //����������� ��������
+            //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
             builder.Services.AddScoped<IPlayerService, PlayerService>();
             builder.Services.AddScoped<IBetService, BetService>();
-            builder.Services.AddScoped<IEventService, EventService>();
 
             var app = builder.Build();
 
