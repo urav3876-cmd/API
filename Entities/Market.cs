@@ -17,7 +17,7 @@ namespace API.Entities
 
         [Required]
         [Column("market_type")]
-        [MaxLength(100)]
+        [MaxLength(30)]
         public string MarketType { get; set; } = string.Empty;
 
         [Required]

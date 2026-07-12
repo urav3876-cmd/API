@@ -16,12 +16,12 @@ namespace API.Entities
 
         [Required]
         [Column("outcome_name")]
-        [MaxLength(100)]
+        [MaxLength(50)]
         public string OutcomeName { get; set; } = string.Empty;
 
         [Required]
         [Column("outcome_score")]
-        [MaxLength(10)]
+        [MaxLength(20)]
         public string OutcomeScore { get; set; } = string.Empty;
 
         [Column("is_deleted")]

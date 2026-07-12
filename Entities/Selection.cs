@@ -17,7 +17,7 @@ namespace API.Entities
 
         [Required]
         [Column("selection_name")]
-        [MaxLength(100)]
+        [MaxLength(50)]
         public string SelectionName { get; set; } = string.Empty;
 
         [Required]
