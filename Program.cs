@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -25,7 +25,7 @@ namespace API
 
             // Add services to the container.
             builder.Services.AddControllers()
-                .AddXmlSerializerFormatters() 
+                .AddXmlSerializerFormatters()
                 .AddXmlDataContractSerializerFormatters();
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -37,8 +37,8 @@ namespace API
                     Description = "JWT Authorization header using the Bearer scheme",
                     Name = "Authorization",
                     In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.Http,  
-                    Scheme = "Bearer"                 
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "Bearer"
                 });
 
                 c.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement

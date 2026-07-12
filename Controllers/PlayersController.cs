@@ -7,11 +7,11 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/players")]
-    public class PlayersController : ControllerBase
+    public class PlayerController : ControllerBase
     {
         private readonly IPlayerService _playerService;
 
-        public PlayersController(IPlayerService playerService)
+        public PlayerController(IPlayerService playerService)
         {
             _playerService = playerService;
         }
