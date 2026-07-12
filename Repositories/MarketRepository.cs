@@ -15,7 +15,7 @@ namespace API.Repositories
             _context = context;
         }
 
-        public async Task<Market> GetByIdWithSelectionsAsync(Guid marketId)
+        public async Task<Market> GetByIdWithSelectionsAsync(int marketId)
         {
             return await _context.Markets
                 .Include(m => m.Selections)

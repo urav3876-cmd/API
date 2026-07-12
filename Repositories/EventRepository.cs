@@ -24,7 +24,7 @@ namespace API.Repositories
                 .ToListAsync();
         }
 
-        public async Task<Event> GetByIdAsync(Guid eventId)
+        public async Task<Event> GetByIdAsync(int eventId)
         {
             return await _context.Events
                 .FirstOrDefaultAsync(e => e.EventId == eventId && !e.IsDeleted);
@@ -46,7 +46,6 @@ namespace API.Repositories
         // ============ CREATE ============
         public async Task<Event> AddAsync(Event eventEntity)
         {
-            eventEntity.EventId = Guid.NewGuid();
             eventEntity.IsDeleted = false;
 
             await _context.Events.AddAsync(eventEntity);
@@ -57,7 +56,7 @@ namespace API.Repositories
 
         // ============ DELETE ============
 
-        public async Task<Event> SoftDeleteAsync(Guid eventId)
+        public async Task<Event> SoftDeleteAsync(int eventId)
         {
             var target = await _context.Events.FindAsync(eventId);
             if (target == null)

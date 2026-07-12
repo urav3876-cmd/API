@@ -16,7 +16,7 @@ namespace API.Services
             _eventRepository = eventRepository;
         }
 
-        public async Task<MarketResponseDto> GetMarketByIdAsync(Guid marketId)
+        public async Task<MarketResponseDto> GetMarketByIdAsync(int marketId)
         {
             var market = await _marketRepository.GetByIdWithSelectionsAsync(marketId);
             if (market == null)
@@ -25,7 +25,7 @@ namespace API.Services
             return MapToResponseDto(market);
         }
 
-        public async Task<MarketResponseDto> CreateMarketAsync(Guid eventId, MarketCreateDto dto)
+        public async Task<MarketResponseDto> CreateMarketAsync(int eventId, MarketCreateDto dto)
         {
             var eventExists = await _eventRepository.GetByIdAsync(eventId);
             if (eventExists == null)
@@ -36,14 +36,12 @@ namespace API.Services
 
             var market = new Market
             {
-                MarketId = Guid.NewGuid(),
                 EventId = eventId,
                 MarketType = dto.MarketType.Trim(),
                 MarketValue = dto.MarketValue.Trim(),
                 IsAvailable = dto.IsAvailable,
                 Selections = dto.Selections.Select(s => new Selection
                 {
-                    SelectionId = Guid.NewGuid(),
                     SelectionName = s.SelectionName.Trim(),
                     Coefficient = s.Coefficient,
                     IsWon = s.IsWon

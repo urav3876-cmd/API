@@ -10,12 +10,11 @@ namespace API.Entities
     {
         [Key]
         [Column("event_id")]
-        public Guid EventId { get; set; } = Guid.NewGuid();
+        public int EventId { get; set; }
 
         [Required]
-        [Column("sport_name")]
-        [MaxLength(100)]
-        public string SportName { get; set; } = string.Empty; 
+        [Column("sport_id")]
+        public int SportId { get; set; }
 
         [Required]
         [Column("team1")]
@@ -27,7 +26,6 @@ namespace API.Entities
         [MaxLength(100)]
         public string Team2 { get; set; } = string.Empty;
 
-        [Required]
         [Column("score")]
         [MaxLength(10)]
         public string Score { get; set; } = "0:0";
@@ -35,7 +33,7 @@ namespace API.Entities
         [Required]
         [Column("status")]
         [MaxLength(20)]
-        public string Status { get; set; } = "scheduled";
+        public string Status { get; set; } = "upcoming";
 
         [Required]
         [Column("start_time")]
@@ -44,8 +42,7 @@ namespace API.Entities
         [Column("is_deleted")]
         public bool IsDeleted { get; set; }
 
-        // ============ НАВИГАЦИОННЫЕ СВОЙСТВА ============
-        [ForeignKey(nameof(SportName))]
+        [ForeignKey(nameof(SportId))]
         public virtual Sport Sport { get; set; } = null!;
 
         public virtual ICollection<Outcome> Outcomes { get; set; } = new List<Outcome>();

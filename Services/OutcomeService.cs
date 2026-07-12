@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using API.DTOs;
+﻿using API.DTOs;
 using API.Entities;
 using API.Interfaces;
 
@@ -20,7 +16,7 @@ namespace API.Services
         }
 
         // ============ READ ============
-        public async Task<IEnumerable<OutcomeResponseDto>> GetOutcomesByEventIdAsync(Guid eventId)
+        public async Task<IEnumerable<OutcomeResponseDto>> GetOutcomesByEventIdAsync(int eventId)
         {
             var eventExists = await _eventRepository.GetByIdAsync(eventId);
             if (eventExists == null)
@@ -31,7 +27,7 @@ namespace API.Services
         }
 
         // ============ CREATE ============
-        public async Task<OutcomeResponseDto> CreateOutcomeAsync(Guid eventId, OutcomeCreateDto dto)
+        public async Task<OutcomeResponseDto> CreateOutcomeAsync(int eventId, OutcomeCreateDto dto)
         {
             var eventExists = await _eventRepository.GetByIdAsync(eventId);
             if (eventExists == null)
@@ -45,7 +41,6 @@ namespace API.Services
 
             var outcome = new Outcome
             {
-                OutcomeId = Guid.NewGuid(),
                 EventId = eventId,
                 OutcomeName = dto.OutcomeName.Trim(),
                 OutcomeScore = dto.OutcomeScore.Trim(),

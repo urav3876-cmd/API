@@ -10,7 +10,7 @@ namespace API.Entities
     {
         [Key]
         [Column("sport_id")]
-        public Guid SportId { get; set; } = Guid.NewGuid();
+        public int SportId { get; set; }
 
         [Required]
         [Column("sport_name")]

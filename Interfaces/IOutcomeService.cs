@@ -5,9 +5,9 @@ namespace API.Interfaces
     public interface IOutcomeService
     {
         // ============ READ ============
-        Task<IEnumerable<OutcomeResponseDto>> GetOutcomesByEventIdAsync(Guid eventId);
+        Task<IEnumerable<OutcomeResponseDto>> GetOutcomesByEventIdAsync(int eventId);
 
         // ============ CREATE ============
-        Task<OutcomeResponseDto> CreateOutcomeAsync(Guid eventId, OutcomeCreateDto dto);
+        Task<OutcomeResponseDto> CreateOutcomeAsync(int eventId, OutcomeCreateDto dto);
     }
 }

@@ -18,7 +18,7 @@ namespace API.Controllers
         // GET: api/events/{eventId}/markets/{marketId}
         // Получить маркет со всеми selection
         [HttpGet("{marketId:guid}")]
-        public async Task<ActionResult<MarketResponseDto>> GetMarket(Guid eventId, Guid marketId)
+        public async Task<ActionResult<MarketResponseDto>> GetMarket(int eventId, int marketId)
         {
             try
             {
@@ -42,7 +42,7 @@ namespace API.Controllers
         // POST: api/events/{eventId}/markets
         // Добавить маркет со всеми selection
         [HttpPost]
-        public async Task<ActionResult<MarketResponseDto>> CreateMarket(Guid eventId, MarketCreateDto dto)
+        public async Task<ActionResult<MarketResponseDto>> CreateMarket(int eventId, MarketCreateDto dto)
         {
             try
             {

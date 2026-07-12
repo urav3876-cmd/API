@@ -9,6 +9,6 @@ namespace API.Interfaces
     {
         // ============ READ ============
         Task<IEnumerable<Sport>> GetAllAsync();
-        Task<Sport> GetByIdAsync(Guid sportId);
+        Task<Sport> GetByIdAsync(int sportId);
     }
 }

@@ -22,7 +22,7 @@ namespace API.Services
             return events.Select(MapToResponseDto);
         }
 
-        public async Task<EventResponseDto> GetEventByIdAsync(Guid eventId)
+        public async Task<EventResponseDto> GetEventByIdAsync(int eventId)
         {
             var eventEntity = await _eventRepository.GetByIdAsync(eventId);
             return eventEntity == null ? null : MapToResponseDto(eventEntity);
@@ -60,12 +60,11 @@ namespace API.Services
 
             var eventEntity = new Event
             {
-                EventId = Guid.NewGuid(),
-                SportName = dto.SportName,
+                SportId = dto.SportId,
                 Team1 = dto.Team1,
                 Team2 = dto.Team2,
                 Score = dto.Score ?? "0:0",
-                Status = dto.Status ?? "scheduled",
+                Status = dto.Status ?? "upcoming",
                 StartTime = dto.StartTime,
                 IsDeleted = false
             };
@@ -75,7 +74,7 @@ namespace API.Services
         }
 
         // ============ DELETE ============
-        public async Task<EventResponseDto> SoftDeleteEventAsync(Guid eventId)
+        public async Task<EventResponseDto> SoftDeleteEventAsync(int eventId)
         {
             var existing = await _eventRepository.GetByIdAsync(eventId);
             if (existing == null)
@@ -100,7 +99,7 @@ namespace API.Services
             return new EventResponseDto
             {
                 EventId = eventEntity.EventId,
-                SportName = eventEntity.SportName,
+                SportId = eventEntity.SportId,
                 Team1 = eventEntity.Team1,
                 Team2 = eventEntity.Team2,
                 Score = eventEntity.Score,
@@ -111,7 +110,7 @@ namespace API.Services
 
         private static bool IsValidStatus(string status)
         {
-            var validStatuses = new[] { "scheduled", "inprogress", "finished", "postponed", "cancelled" };
+            var validStatuses = new[] { "upcoming", "live", "finished", "cancelled" };
             return validStatuses.Contains(status.ToLower());
         }
     }

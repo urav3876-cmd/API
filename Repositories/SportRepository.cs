@@ -26,7 +26,7 @@ namespace API.Repositories
                 .ToListAsync();
         }
 
-        public async Task<Sport> GetByIdAsync(Guid sportId)
+        public async Task<Sport> GetByIdAsync(int sportId)
         {
             return await _context.Sports
                 .FirstOrDefaultAsync(s => s.SportId == sportId && !s.IsDeleted);

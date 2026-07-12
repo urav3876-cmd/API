@@ -8,11 +8,11 @@ namespace API.Entities
     {
         [Key]
         [Column("outcome_id")]
-        public Guid OutcomeId { get; set; } = Guid.NewGuid();
+        public int OutcomeId { get; set; }
 
         [Required]
         [Column("event_id")]
-        public Guid EventId { get; set; }
+        public int EventId { get; set; }
 
         [Required]
         [Column("outcome_name")]

@@ -18,14 +18,14 @@ namespace API.Repositories
             _context = context;
         }
 
-        public async Task<IEnumerable<Outcome>> GetByEventIdAsync(Guid eventId)
+        public async Task<IEnumerable<Outcome>> GetByEventIdAsync(int eventId)
         {
             return await _context.Outcomes
                 .Where(o => o.EventId == eventId && !o.IsDeleted)
                 .ToListAsync();
         }
 
-        public async Task<Outcome> GetByIdAsync(Guid outcomeId)
+        public async Task<Outcome> GetByIdAsync(int outcomeId)
         {
             return await _context.Outcomes
                 .FirstOrDefaultAsync(o => o.OutcomeId == outcomeId && !o.IsDeleted);
@@ -33,7 +33,6 @@ namespace API.Repositories
 
         public async Task<Outcome> AddAsync(Outcome outcome)
         {
-            outcome.OutcomeId = Guid.NewGuid();
             outcome.IsDeleted = false;
 
             await _context.Outcomes.AddAsync(outcome);
@@ -42,7 +41,7 @@ namespace API.Repositories
             return outcome;
         }
 
-        public async Task<Outcome> SoftDeleteAsync(Guid outcomeId)
+        public async Task<Outcome> SoftDeleteAsync(int outcomeId)
         {
             var target = await _context.Outcomes.FindAsync(outcomeId);
             if (target == null)

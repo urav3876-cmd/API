@@ -21,9 +21,10 @@ namespace API.DTOs
     // Для ответа (GET /api/events/{eventId}/outcomes)
     public class OutcomeResponseDto
     {
-        public Guid OutcomeId { get; set; }
-        public Guid EventId { get; set; }
+        public int OutcomeId { get; set; }
+        public int EventId { get; set; }
         public string OutcomeName { get; set; } = string.Empty;
         public string OutcomeScore { get; set; } = string.Empty;
+
     }
 }

@@ -9,11 +9,11 @@ namespace API.Entities
     {
         [Key]
         [Column("selection_id")]
-        public Guid SelectionId { get; set; } = Guid.NewGuid();
+        public int SelectionId { get; set; }
 
         [Required]
         [Column("market_id")]
-        public Guid MarketId { get; set; }
+        public int MarketId { get; set; }
 
         [Required]
         [Column("selection_name")]
@@ -21,7 +21,7 @@ namespace API.Entities
         public string SelectionName { get; set; } = string.Empty;
 
         [Required]
-        [Column("coefficient", TypeName = "decimal(3,4)")]
+        [Column("coefficient", TypeName = "decimal(10,6)")]
         public decimal Coefficient { get; set; }
 
         [Column("is_won")]

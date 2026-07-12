@@ -35,8 +35,8 @@ namespace API.DTOs
     // Для ответа (GET /api/events/{eventId}/markets/{marketId})
     public class MarketResponseDto
     {
-        public Guid MarketId { get; set; }
-        public Guid EventId { get; set; }
+        public int MarketId { get; set; }
+        public int EventId { get; set; }
         public string MarketType { get; set; } = string.Empty;
         public string MarketValue { get; set; } = string.Empty;
         public bool IsAvailable { get; set; }
@@ -46,8 +46,8 @@ namespace API.DTOs
     // Для ответа (selection в составе маркета)
     public class SelectionResponseDto
     {
-        public Guid SelectionId { get; set; }
-        public Guid MarketId { get; set; }
+        public int SelectionId { get; set; }
+        public int MarketId { get; set; }
         public string SelectionName { get; set; } = string.Empty;
         public decimal Coefficient { get; set; }
         public bool IsWon { get; set; }

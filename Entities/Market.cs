@@ -9,11 +9,11 @@ namespace API.Entities
     {
         [Key]
         [Column("market_id")]
-        public Guid MarketId { get; set; } = Guid.NewGuid();
+        public int MarketId { get; set; }
 
         [Required]
         [Column("event_id")]
-        public Guid EventId { get; set; }
+        public int EventId { get; set; }
 
         [Required]
         [Column("market_type")]
@@ -22,7 +22,7 @@ namespace API.Entities
 
         [Required]
         [Column("market_value")]
-        [MaxLength(100)]
+        [MaxLength(20)]
         public string MarketValue { get; set; } = string.Empty;
 
         [Column("is_available")]

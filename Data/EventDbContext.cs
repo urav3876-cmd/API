@@ -26,12 +26,12 @@ namespace API.Data
             {
                 entity.ToTable(t => t.HasCheckConstraint(
                    "CK_Event_Status",
-                   "status IN ('scheduled', 'inprogress', 'finished', 'postponed', 'cancelled')"));
+                   "status IN ('upcoming', 'live', 'finished', 'cancelled')"));
 
                 entity.HasOne(e => e.Sport)
                     .WithMany(s => s.Events)
-                    .HasForeignKey(e => e.SportName)
-                    .HasPrincipalKey(s => s.SportName)
+                    .HasForeignKey(e => e.SportId)
+                    .HasPrincipalKey(s => s.SportId)
                     .OnDelete(DeleteBehavior.Restrict);
 
                 entity.HasQueryFilter(e => !e.IsDeleted);

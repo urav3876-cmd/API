@@ -5,13 +5,13 @@ namespace API.Interfaces
     public interface IOutcomeRepository
     {
         // ============ READ ============
-        Task<IEnumerable<Outcome>> GetByEventIdAsync(Guid eventId);
-        Task<Outcome> GetByIdAsync(Guid outcomeId);
+        Task<IEnumerable<Outcome>> GetByEventIdAsync(int eventId);
+        Task<Outcome> GetByIdAsync(int outcomeId);
 
         // ============ CREATE ============
         Task<Outcome> AddAsync(Outcome outcome);
 
         // ============ DELETE ============
-        Task<Outcome> SoftDeleteAsync(Guid outcomeId);
+        Task<Outcome> SoftDeleteAsync(int outcomeId);
     }
 }

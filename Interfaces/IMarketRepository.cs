@@ -7,7 +7,7 @@ namespace API.Interfaces
     public interface IMarketRepository
     {
         // ============ READ ============
-        Task<Market> GetByIdWithSelectionsAsync(Guid marketId);
+        Task<Market> GetByIdWithSelectionsAsync(int marketId);
 
         // ============ CREATE ============
         Task<Market> AddWithSelectionsAsync(Market market);

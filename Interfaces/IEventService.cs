@@ -6,13 +6,13 @@ namespace API.Interfaces
     {
         // ============ READ ============
         Task<IEnumerable<EventResponseDto>> GetAllEventsAsync();
-        Task<EventResponseDto> GetEventByIdAsync(Guid eventId);
+        Task<EventResponseDto> GetEventByIdAsync(int eventId);
         Task<IEnumerable<EventResponseDto>> GetEventsByDateRangeAsync(DateTime fromDate, DateTime toDate);
 
         // ============ CREATE ============
         Task<EventResponseDto> CreateEventAsync(EventCreateDto dto);
 
         // ============ DELETE ============
-        Task<EventResponseDto> SoftDeleteEventAsync(Guid eventId);
+        Task<EventResponseDto> SoftDeleteEventAsync(int eventId);
     }
 }

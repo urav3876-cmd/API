@@ -18,7 +18,7 @@ namespace API.Controllers
         // GET: api/events/{eventId}/outcomes
         // Получить все этапы события
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<OutcomeResponseDto>>> GetOutcomes(Guid eventId)
+        public async Task<ActionResult<IEnumerable<OutcomeResponseDto>>> GetOutcomes(int eventId)
         {
             try
             {
@@ -38,7 +38,7 @@ namespace API.Controllers
         // POST: api/events/{eventId}/outcomes
         // Добавить новый этап события
         [HttpPost]
-        public async Task<ActionResult<OutcomeResponseDto>> CreateOutcome(Guid eventId, OutcomeCreateDto dto)
+        public async Task<ActionResult<OutcomeResponseDto>> CreateOutcome(int eventId, OutcomeCreateDto dto)
         {
             try
             {
