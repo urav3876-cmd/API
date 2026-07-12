@@ -5,6 +5,5 @@
     {
         public Guid SportId { get; set; }
         public string SportName { get; set; } = string.Empty;
-        public DateTime CreatedAt { get; set; }
     }
 }

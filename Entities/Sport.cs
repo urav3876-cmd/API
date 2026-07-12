@@ -20,9 +20,6 @@ namespace API.Entities
         [Column("is_deleted")]
         public bool IsDeleted { get; set; }
 
-        [Column("created_at")]
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
         public virtual ICollection<Event> Events { get; set; } = new List<Event>();
     }
 }

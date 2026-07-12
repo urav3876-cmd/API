@@ -24,10 +24,6 @@ namespace API.Entities
         [MaxLength(10)]
         public string OutcomeScore { get; set; } = string.Empty;
 
-        [Required]
-        [Column("start_time")]
-        public DateTime StartTime { get; set; }
-
         [Column("is_deleted")]
         public bool IsDeleted { get; set; }
 

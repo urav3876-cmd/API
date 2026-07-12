@@ -15,15 +15,6 @@ namespace API.Controllers
             _eventService = eventService;
         }
 
-        // GET: api/events
-        // Получить все события
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<EventResponseDto>>> GetAllEvents()
-        {
-            var result = await _eventService.GetAllEventsAsync();
-            return Ok(result);
-        }
-
         // GET: api/events/{id} 
         // Получить событие по id 
         [HttpGet("{id:guid}")]

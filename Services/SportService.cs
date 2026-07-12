@@ -22,8 +22,7 @@ namespace API.Services
             return sports.Select(sport => new SportResponseDto
             {
                 SportId = sport.SportId,
-                SportName = sport.SportName,
-                CreatedAt = sport.CreatedAt
+                SportName = sport.SportName
             });
         }
     }

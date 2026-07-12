@@ -67,7 +67,6 @@ namespace API.Services
                 Score = dto.Score ?? "0:0",
                 Status = dto.Status ?? "scheduled",
                 StartTime = dto.StartTime,
-                CreatedAt = DateTime.UtcNow,
                 IsDeleted = false
             };
 
@@ -106,9 +105,7 @@ namespace API.Services
                 Team2 = eventEntity.Team2,
                 Score = eventEntity.Score,
                 Status = eventEntity.Status,
-                StartTime = eventEntity.StartTime,
-                CreatedAt = eventEntity.CreatedAt,
-                UpdatedAt = eventEntity.UpdatedAt
+                StartTime = eventEntity.StartTime
             };
         }
 

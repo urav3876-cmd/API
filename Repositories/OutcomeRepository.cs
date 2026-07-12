@@ -11,16 +11,16 @@ namespace API.Repositories
 {
     public class OutcomeRepository : IOutcomeRepository
     {
-        private readonly OutcomeDbContext _context;  // ← ДОЛЖЕН БЫТЬ OutcomeDbContext!
+        private readonly OutcomeDbContext _context; 
 
-        public OutcomeRepository(OutcomeDbContext context)  // ← OutcomeDbContext!
+        public OutcomeRepository(OutcomeDbContext context)
         {
             _context = context;
         }
 
         public async Task<IEnumerable<Outcome>> GetByEventIdAsync(Guid eventId)
         {
-            return await _context.Outcomes  // ← Теперь работает!
+            return await _context.Outcomes
                 .Where(o => o.EventId == eventId && !o.IsDeleted)
                 .ToListAsync();
         }

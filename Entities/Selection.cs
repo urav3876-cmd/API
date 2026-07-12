@@ -21,7 +21,7 @@ namespace API.Entities
         public string SelectionName { get; set; } = string.Empty;
 
         [Required]
-        [Column("coefficient")]
+        [Column("coefficient", TypeName = "decimal(3,4)")]
         public decimal Coefficient { get; set; }
 
         [Column("is_won")]

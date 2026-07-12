@@ -49,7 +49,6 @@ namespace API.Services
                 EventId = eventId,
                 OutcomeName = dto.OutcomeName.Trim(),
                 OutcomeScore = dto.OutcomeScore.Trim(),
-                StartTime = dto.StartTime,
                 IsDeleted = false
             };
 
@@ -65,8 +64,7 @@ namespace API.Services
                 OutcomeId = outcome.OutcomeId,
                 EventId = outcome.EventId,
                 OutcomeName = outcome.OutcomeName,
-                OutcomeScore = outcome.OutcomeScore,
-                StartTime = outcome.StartTime
+                OutcomeScore = outcome.OutcomeScore
             };
         }
     }

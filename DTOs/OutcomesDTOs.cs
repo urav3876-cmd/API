@@ -25,6 +25,5 @@ namespace API.DTOs
         public Guid EventId { get; set; }
         public string OutcomeName { get; set; } = string.Empty;
         public string OutcomeScore { get; set; } = string.Empty;
-        public DateTime StartTime { get; set; }
     }
 }

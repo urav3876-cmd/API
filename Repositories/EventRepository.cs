@@ -47,7 +47,6 @@ namespace API.Repositories
         public async Task<Event> AddAsync(Event eventEntity)
         {
             eventEntity.EventId = Guid.NewGuid();
-            eventEntity.CreatedAt = DateTime.UtcNow;
             eventEntity.IsDeleted = false;
 
             await _context.Events.AddAsync(eventEntity);
@@ -65,7 +64,6 @@ namespace API.Repositories
                 return null;
 
             target.IsDeleted = true;
-            target.UpdatedAt = DateTime.UtcNow;
             await _context.SaveChangesAsync();
             return target;
         }
