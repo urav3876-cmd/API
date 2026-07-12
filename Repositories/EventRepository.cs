@@ -8,9 +8,9 @@ namespace API.Repositories
 {
     public class EventRepository : IEventRepository
     {
-        private readonly EventDbContext _context;
+        private readonly AppDbContext _context;
 
-        public EventRepository(EventDbContext context)
+        public EventRepository(AppDbContext context)
         {
             _context = context;
         }

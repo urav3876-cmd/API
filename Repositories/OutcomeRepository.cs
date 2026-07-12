@@ -11,9 +11,9 @@ namespace API.Repositories
 {
     public class OutcomeRepository : IOutcomeRepository
     {
-        private readonly OutcomeDbContext _context; 
+        private readonly AppDbContext _context; 
 
-        public OutcomeRepository(OutcomeDbContext context)
+        public OutcomeRepository(AppDbContext context)
         {
             _context = context;
         }

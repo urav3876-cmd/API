@@ -11,9 +11,9 @@ namespace API.Repositories
 {
     public class SportRepository : ISportRepository
     {
-        private readonly EventDbContext _context;
+        private readonly AppDbContext _context;
 
-        public SportRepository(EventDbContext context)
+        public SportRepository(AppDbContext context)
         {
             _context = context;
         }

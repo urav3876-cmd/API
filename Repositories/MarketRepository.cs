@@ -8,9 +8,9 @@ namespace API.Repositories
 {
     public class MarketRepository : IMarketRepository
     {
-        private readonly MarketDbContext _context;
+        private readonly AppDbContext _context;
 
-        public MarketRepository(MarketDbContext context)
+        public MarketRepository(AppDbContext context)
         {
             _context = context;
         }
