@@ -17,12 +17,12 @@ namespace API.Entities
         public int SportId { get; set; }
 
         [Required]
-        [Column("team1")]
+        [Column("team_1")]
         [MaxLength(100)]
         public string Team1 { get; set; } = string.Empty;
 
         [Required]
-        [Column("team2")]
+        [Column("team_2")]
         [MaxLength(100)]
         public string Team2 { get; set; } = string.Empty;
 

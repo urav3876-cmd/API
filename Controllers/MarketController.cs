@@ -5,7 +5,7 @@ using API.Interfaces;
 namespace API.Controllers
 {
     [ApiController]
-    [Route("api/events/{eventId:guid}/markets")]
+    [Route("api/events/{eventId:int}/markets")]
     public class MarketsController : ControllerBase
     {
         private readonly IMarketService _marketService;
@@ -17,7 +17,7 @@ namespace API.Controllers
 
         // GET: api/events/{eventId}/markets/{marketId}
         // Получить маркет со всеми selection
-        [HttpGet("{marketId:guid}")]
+        [HttpGet("{marketId:int}")]
         public async Task<ActionResult<MarketResponseDto>> GetMarket(int eventId, int marketId)
         {
             try

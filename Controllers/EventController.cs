@@ -17,7 +17,7 @@ namespace API.Controllers
 
         // GET: api/events/{id} 
         // Получить событие по id 
-        [HttpGet("{id:guid}")]
+        [HttpGet("{id:int}")]
         public async Task<ActionResult<EventResponseDto>> GetEvent(int id)
         {
             var result = await _eventService.GetEventByIdAsync(id);
@@ -74,7 +74,7 @@ namespace API.Controllers
 
         // PATCH: api/events/{id}/soft-delete
         // Удалить событие (мягко)
-        [HttpPatch("{id:guid}/soft-delete")]
+        [HttpPatch("{id:int}/soft-delete")]
         public async Task<ActionResult<EventResponseDto>> SoftDeleteEvent(int id)
         {
             try

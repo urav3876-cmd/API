@@ -5,7 +5,7 @@ using API.Interfaces;
 namespace API.Controllers
 {
     [ApiController]
-    [Route("api/events/{eventId:guid}/outcomes")]
+    [Route("api/events/{eventId:int}/outcomes")]
     public class OutcomesController : ControllerBase
     {
         private readonly IOutcomeService _outcomeService;
