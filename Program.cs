@@ -14,7 +14,7 @@ builder.Services.AddSwaggerGen();
 // ЕДИНЫЙ КОНТЕКСТ
 // ============================================================
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("SportsEventsConnection")));
 
 // ============================================================
 // РЕГИСТРАЦИЯ РЕПОЗИТОРИЕВ
@@ -33,6 +33,30 @@ builder.Services.AddScoped<IOutcomeService, OutcomeService>();
 builder.Services.AddScoped<IMarketService, MarketService>();
 
 var app = builder.Build();
+
+// ВРЕМЕННАЯ ПРОВЕРКА ПОДКЛЮЧЕНИЯ
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    var connectionString = dbContext.Database.GetConnectionString();
+    Console.WriteLine($"Подключено к БД: {connectionString}");
+
+    try
+    {
+        var canConnect = await dbContext.Database.CanConnectAsync();
+        Console.WriteLine($"Можно подключиться: {canConnect}");
+
+        if (canConnect)
+        {
+            var eventsCount = await dbContext.Events.CountAsync();
+            Console.WriteLine($"Количество событий в БД: {eventsCount}");
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Ошибка подключения: {ex.Message}");
+    }
+}
 
 if (app.Environment.IsDevelopment())
 {
