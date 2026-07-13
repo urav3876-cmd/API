@@ -11,7 +11,7 @@ using API.Middlewares;
 
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// JWT токен
+// JWT пїЅпїЅпїЅпїЅпїЅ
 //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdHVzZXIiLCJqdGkiOiIxMjM0NTY3OC0xMjM0LTEyMzQtMTIzNC0xMjM0NTY3ODlhYmMiLCJleHAiOjIwMDAwMDAwMDAsImF1ZCI6ImJldHRpbmctYXBpIiwiaXNzIjoiYmV0dGluZy1hcGkifQ.2SGv3FyCI7jIMfSJmGAsJagjH_-vCCiDPN7G6FsoyNo
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -85,19 +85,19 @@ namespace API
             });
 
             // ============================================================
-            // ЕДИНЫЙ КОНТЕКСТ — BettingDbContext (из первого)
+            // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ BettingDbContext (пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
             // ============================================================
             builder.Services.AddDbContext<BettingDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             // ============================================================
-            // SportsEvents контекст (из второго)
+            // SportsEvents пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
             // ============================================================
             builder.Services.AddDbContext<AppDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("SportsEventsConnection")));
 
             // ============================================================
-            // РЕГИСТРАЦИЯ РЕПОЗИТОРИЕВ (из второго)
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
             // ============================================================
             builder.Services.AddScoped<IEventRepository, EventRepository>();
             builder.Services.AddScoped<ISportRepository, SportRepository>();
@@ -109,7 +109,7 @@ namespace API
             builder.Services.AddScoped<IBetService, BetService>();
 
             // ============================================================
-            // РЕГИСТРАЦИЯ СЕРВИСОВ (из второго)
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
             // ============================================================
             builder.Services.AddScoped<IEventService, EventService>();
             builder.Services.AddScoped<ISportService, SportService>();
@@ -125,27 +125,27 @@ namespace API
                 app.UseSwaggerUI();
             }
 
-            // ВРЕМЕННАЯ ПРОВЕРКА ПОДКЛЮЧЕНИЯ (из второго)
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
             using (var scope = app.Services.CreateScope())
             {
                 var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
                 var connectionString = dbContext.Database.GetConnectionString();
-                Console.WriteLine($"Подключено к БД: {connectionString}");
+                Console.WriteLine($"пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅ: {connectionString}");
 
                 try
                 {
                     var canConnect = await dbContext.Database.CanConnectAsync();
-                    Console.WriteLine($"Можно подключиться: {canConnect}");
+                    Console.WriteLine($"пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: {canConnect}");
 
                     if (canConnect)
                     {
                         var eventsCount = await dbContext.Events.CountAsync();
-                        Console.WriteLine($"Количество событий в БД: {eventsCount}");
+                        Console.WriteLine($"пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅ: {eventsCount}");
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine($"Ошибка подключения: {ex.Message}");
+                    Console.WriteLine($"пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: {ex.Message}");
                 }
             }
 
