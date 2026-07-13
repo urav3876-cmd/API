@@ -1,4 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -11,7 +11,7 @@ using API.Middlewares;
 
 
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// JWT токен
+// JWT �����
 //eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidGVzdHVzZXIiLCJqdGkiOiIxMjM0NTY3OC0xMjM0LTEyMzQtMTIzNC0xMjM0NTY3ODlhYmMiLCJleHAiOjIwMDAwMDAwMDAsImF1ZCI6ImJldHRpbmctYXBpIiwiaXNzIjoiYmV0dGluZy1hcGkifQ.2SGv3FyCI7jIMfSJmGAsJagjH_-vCCiDPN7G6FsoyNo
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -19,7 +19,7 @@ namespace API
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -84,13 +84,37 @@ namespace API
                     .Build();
             });
 
-            //PostgreSQL
+            // ============================================================
+            // ������ �������� � BettingDbContext (�� �������)
+            // ============================================================
             builder.Services.AddDbContext<BettingDbContext>(options =>
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            // ============================================================
+            // SportsEvents �������� (�� �������)
+            // ============================================================
+            builder.Services.AddDbContext<AppDbContext>(options =>
+                options.UseNpgsql(builder.Configuration.GetConnectionString("SportsEventsConnection")));
+
+            // ============================================================
+            // ����������� ������������ (�� �������)
+            // ============================================================
+            builder.Services.AddScoped<IEventRepository, EventRepository>();
+            builder.Services.AddScoped<ISportRepository, SportRepository>();
+            builder.Services.AddScoped<IOutcomeRepository, OutcomeRepository>();
+            builder.Services.AddScoped<IMarketRepository, MarketRepository>();
 
             //Services
             builder.Services.AddScoped<IPlayerService, PlayerService>();
             builder.Services.AddScoped<IBetService, BetService>();
+
+            // ============================================================
+            // ����������� �������� (�� �������)
+            // ============================================================
+            builder.Services.AddScoped<IEventService, EventService>();
+            builder.Services.AddScoped<ISportService, SportService>();
+            builder.Services.AddScoped<IOutcomeService, OutcomeService>();
+            builder.Services.AddScoped<IMarketService, MarketService>();
 
             var app = builder.Build();
 
@@ -99,6 +123,30 @@ namespace API
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
+            }
+
+            // ��������� �������� ����������� (�� �������)
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+                var connectionString = dbContext.Database.GetConnectionString();
+                Console.WriteLine($"���������� � ��: {connectionString}");
+
+                try
+                {
+                    var canConnect = await dbContext.Database.CanConnectAsync();
+                    Console.WriteLine($"����� ������������: {canConnect}");
+
+                    if (canConnect)
+                    {
+                        var eventsCount = await dbContext.Events.CountAsync();
+                        Console.WriteLine($"���������� ������� � ��: {eventsCount}");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"������ �����������: {ex.Message}");
+                }
             }
 
             app.UseHttpsRedirection();
@@ -113,17 +161,15 @@ namespace API
                 app.UseMiddleware<KafkaLoggingMiddleware>();
             }
 
-
             var rabbitEnabled = builder.Configuration.GetValue<bool>("RabbitMQ:Enabled");
             if (rabbitEnabled)
             {
                 app.UseMiddleware<RabbitMQLoggingMiddleware>();
             }
 
-
             app.MapControllers();
 
-            app.Run();
+            await app.RunAsync();
         }
     }
 }
