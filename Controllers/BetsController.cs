@@ -7,11 +7,11 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/bets")]
-    public class BetsController : ControllerBase
+    public class BetController : ControllerBase
     {
         private readonly IBetService _betService;
 
-        public BetsController(IBetService betService)
+        public BetController(IBetService betService)
         {
             _betService = betService;
         }
